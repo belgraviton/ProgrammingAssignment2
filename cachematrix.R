@@ -31,15 +31,15 @@ makeCacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) {
   ## Obtaining inverse matrix or NULL from object x
   invM <- x$getInvMatrix()
-  if(!is.null(invM)) {
+  if(!is.null(invM)) {## Obtaining cached data
     message("getting cached data")
-    return(invisible(invM)) ## invisible - to supress output
-  }
-  ## Calculating inverse matrix if invM is NULL
-  data <- x$get()
-  invM <- solve(data, ...)
-  message("calculating matrix inverse")
-  x$setInvMatrix(invM)
-  ## Return a matrix that is the inverse of 'x'
-  invisible(invM) ## invisible - to supress output
-}
+    invisible(invM) ## invisible - to supress output
+  } else {## Calculating inverse matrix if invM is NULL
+    data <- x$get()
+    invM <- solve(data, ...)
+    message("calculating matrix inverse")
+    x$setInvMatrix(invM)
+    ## Return a matrix that is the inverse of 'x'
+    invisible(invM) ## invisible - to supress output
+  } ## end if
+} ## end fuction
